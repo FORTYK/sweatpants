@@ -9,7 +9,7 @@ let express = require("express");
 let app = express();
 let api = require("./API/api.js");
 
-app.use("/api", api);
+app.use("/api", api.router);
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get("*", function (req, res) {
