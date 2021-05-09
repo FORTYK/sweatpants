@@ -1,31 +1,37 @@
 require("dotenv").config();
-var express = require("express");
-var app = express();
+const path = require("path");
+const compression = require("compression");
+const express = require("express");
+const app = express();
 
+app.use(compression());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+require("./config/session")(app);
 require("./config/helmet")(app);
 require("./config/cors")(app);
 app.set("trust proxy", 1); // Trust first proxy: Express will have knowledge that it's sitting behind a proxy and that the X-Forwarded-* header fields
+app.use(express.static(path.join(__dirname, "/build")));
 //var helmet = require("helmet");
 //var cors = require("cors");
 //var cors = require("./API/config/cors.js");
 
-app.use(async (req, res, next) => {
-    /*
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-*/
+app.use((req, res, next) => {
     // Output the requested API URL
-    console.log(req.url);
+    console.log(req.originalUrl);
     next();
 });
 
-app.use("/api", require("./API/index.js").router);
+var api = require("./API/index.js");
+app.use("/api", api);
 
 // respond with "hello world" when a GET request is made to the homepage
-app.get("*", async (req, res) => {
-    return res.send("hello world");
+app.use("*", (req, res) => {
+    if (process.env.NODE_ENV === "production") {
+        return res.sendFile(path.join(__dirname, "/build/index.html"));
+    }
 });
 
 app.listen(process.env.EXPRESS_PORT, () => {
-    console.log(`Example app listening at http://localhost:${process.env.EXPRESS_PORT}`);
+    console.log(`http://localhost:${process.env.EXPRESS_PORT}`);
 });

@@ -4,6 +4,9 @@ let sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.
     host: process.env.DB_HOST,
     logging: (...msg) => console.log(msg),
     dialect: "mysql",
+    define: {
+        freezeTableName: true,
+    },
 });
 
 const User = sequelize.define(
@@ -16,28 +19,25 @@ const User = sequelize.define(
             autoIncrement: true,
             allowNull: false,
         },
-        user_status: {
+        status: {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
         },
-        user_login: {
+        login: {
+            type: DataTypes.STRING,
+            unique: true,
+            allowNull: false,
+        },
+        password: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        user_pass: {
+        display: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        user_display: {
+        email: {
             type: DataTypes.STRING,
-            allowNull: false,
-        },
-        user_email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        user_registered: {
-            type: DataTypes.DATE,
             allowNull: false,
         },
     },
@@ -46,6 +46,77 @@ const User = sequelize.define(
     }
 );
 
+const Post = sequelize.define(
+    "Post",
+    {
+        // Model attributes are defined here
+        idpost: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            primaryKey: true,
+            autoIncrement: true,
+            allowNull: false,
+        },
+        type: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            allowNull: false,
+        },
+        user: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        status: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        title: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        content: {
+            type: DataTypes.STRING(5000),
+            allowNull: false,
+        },
+    },
+    {
+        // Other model options go here
+    }
+);
+
+const Session = sequelize.define("Session", {
+    sid: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+    },
+    userid: DataTypes.INTEGER.UNSIGNED,
+    expires: DataTypes.DATE,
+    data: DataTypes.TEXT,
+});
+
+(async () => {
+    //await sequelize.sync({ force: true });
+    /*
+    Put
+    */
+    /*
+    const jane = await User.create({
+        status: 1,
+        login: "FORTYK",
+        password: "123123",
+        display: "FORTYK2",
+        email: "example@example.com",
+    });
+
+    /*
+    Select
+    const users = await User.findAll();
+    console.log(users.every((user) => user instanceof User));
+    console.log("All users:", JSON.stringify(users, null, 2));
+    */
+})();
+
 module.exports = {
-    sequelize,
+    db: sequelize,
+    Session,
+    User,
+    Post,
 };

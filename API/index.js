@@ -1,24 +1,20 @@
-let express = require("express");
-let router = express.Router();
+const express = require("express");
+const router = express.Router();
 
 // Routes that requires no auth
 // Such as performing authentication
-router.get("post", async (req, res, next) => {
-    // Perform auth, and reject
-    return res.send({ title: "response" });
-    //next();
-});
+router.use("/session", require("./routes/session").router);
 
-router.use("user", require("./user").routes);
-router.use("post", require("./post").routes);
+// Requires logged in?
+router.use("/user", require("./routes/user").router);
+router.use("/post", require("./routes/post").router);
 
+/*
 router.use(async (req, res, next) => {
     // Perform auth, and reject
     next();
 });
-
+*/
 // Routes that need auth
 
-module.exports = {
-    router,
-};
+module.exports = router;

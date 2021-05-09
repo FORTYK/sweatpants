@@ -18,7 +18,6 @@ class Feed extends Component {
     }
     render() {
         const { data } = this.state;
-        console.log("data :>> ", data);
         return (
             <div className="container">
                 <div className="row">
