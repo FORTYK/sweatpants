@@ -42,7 +42,6 @@ const User = sequelize.define(
         },
     },
     {
-        // Other model options go here
     }
 );
 
@@ -78,7 +77,6 @@ const Post = sequelize.define(
         },
     },
     {
-        // Other model options go here
     }
 );
 
@@ -98,11 +96,11 @@ const Session = sequelize.define("Session", {
     Put
     */
     /*
-    const jane = await User.create({
+    const user = await User.create({
         status: 1,
         login: "FORTYK",
         password: "123123",
-        display: "FORTYK2",
+        display: "FORTYK",
         email: "example@example.com",
     });
 
