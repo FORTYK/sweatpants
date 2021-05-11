@@ -6,7 +6,6 @@ import Login from "./components/Forms/Login";
 import Feed from "./components/Feed";
 import Editor from "./components/Editor";
 import "./css/index.css";
-import { cookie } from "express-validator";
 
 class App extends Component {
     constructor(props) {
