@@ -8,10 +8,8 @@ class Feed extends Component {
             data: [
                 {
                     title: "Setting realistic goals",
-                    ingress: "The key of getting out of a slump",
-                    bread: [
-                        "It is important to set goals in order to feel that you make progress, and in order to not reach for more than you can grab. The sweet spot is setting small realistic goals that keep you engaged and learning while also not trumping your productivity, by being overbearing.",
-                    ],
+                    ingress: "Om jag skriver en titel",
+                    bread: ["så uppdateras det så fort jag trycker ctrl + s"],
                 },
             ],
         };
