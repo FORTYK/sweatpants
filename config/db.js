@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 
 let sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
     host: process.env.DB_HOST,
-    logging: (...msg) => console.log(msg),
+    logging: (...msg) => console.log(""),//console.log(msg),
     dialect: "mysql",
     define: {
         freezeTableName: true,
