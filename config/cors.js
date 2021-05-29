@@ -4,7 +4,7 @@ let origin = process.env.ORIGIN_HOST + (process.env.PORT ? ":" + process.env.POR
 const mod = (app) => {
     app.use(
         cors({
-            origin: "*",
+            origin: [`${process.env.ORIGIN_HOST}:${process.env.PORT}`],
             methods: ["GET", "POST", "DELETE"],
             credentials: true, // enable set cookie
         })

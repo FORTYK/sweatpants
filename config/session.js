@@ -10,6 +10,7 @@ var SequelizeStore = require("connect-session-sequelize")(session.Store);
 const mod = (app) => {
     const sequelizeStore = new SequelizeStore({
         db: db,
+
         /*
         checkExpirationInterval: 15 * 60 * 1000, // The interval at which to cleanup expired sessions in milliseconds.
         expiration: 24 * 60 * 60 * 1000, // The maximum age (in milliseconds) of a valid session.
@@ -18,14 +19,14 @@ const mod = (app) => {
 
     app.use(
         session({
-            secret: "tempsecretkey",
+            secret: process.env.SECRET,
             store: sequelizeStore,
             resave: false,
             saveUninitialized: true,
             cookie: {
                 httpOnly: true,
                 path: "/",
-                secure: true,
+                secure: false,
                 maxAge: 30 * 24 * 60 * 60 * 1000,
             },
         })
