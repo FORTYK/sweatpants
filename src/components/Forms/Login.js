@@ -38,7 +38,7 @@ class Login extends Component {
         console.log("this.props :>> ", this.props);
         api.post("/session/login", { ...form }).then((response) => {
             const { data } = response;
-            if (data.success) {
+            if (data.user) {
                 this.setState({
                     ...data,
                     error: null,

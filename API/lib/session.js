@@ -17,13 +17,7 @@ var session = {
   },
 
   async logout(req, res) {
-    let isLogout = await this.initialize(req, res);
-
-    if (isLogout) {
-      return res.send({ user: {} });
-    } else {
-      return res.status(500).send(err(""));
-    }
+    await this.initialize(req, res);
   },
 
 
