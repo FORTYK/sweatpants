@@ -3,11 +3,12 @@ const router = express.Router();
 
 // Routes that requires no auth
 // Such as performing authentication
-router.use("/session", require("./routes/session").router);
+router.use("/handshake", require("./routes/handshake"));
+router.use("/session", require("./routes/session"));
 
 // Requires logged in?
-router.use("/user", require("./routes/user").router);
-router.use("/post", require("./routes/post").router);
+router.use("/user", require("./routes/user"));
+router.use("/post", require("./routes/post"));
 
 /*
 router.use(async (req, res, next) => {
